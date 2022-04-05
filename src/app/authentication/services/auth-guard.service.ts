@@ -1,29 +1,28 @@
-import { Injectable }       from '@angular/core';
-import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthService }      from './auth.service';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot} from '@angular/router';
+import {AuthService} from './auth.service';
+import {Roles} from "../../models";
 
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
-  	
   constructor(private authService: AuthService, private router: Router) {
   }
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     let url: string = state.url;
-	console.log('Url:'+ url);
 	if (this.authService.isUserLoggedIn()) {
-		return true; 
+		return true;
 	}
-    this.authService.setRedirectUrl(url);
-    this.router.navigate([ this.authService.getLoginUrl() ]);
+
+	this.authService.setRedirectUrl(url);
+	this.router.navigate([ this.authService.getLoginUrl() ]);
+
 	return false;
   }
+
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     let loggedInUser= this.authService.getLoggedInUser();
-	if (loggedInUser.role === 'ADMIN') {
-	    return true;		
-	} else {
-		console.log('Unauthorized to open link: '+ state.url);
-		return false;
-	}
-  }  
+
+    return loggedInUser.role === Roles.admin;
+  }
 }

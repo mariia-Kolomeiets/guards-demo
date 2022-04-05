@@ -1,7 +1,7 @@
-<h3>Edit Article</h3>
-<p *ngIf="article"><b>Article Id: {{article.articleId }} </b></p>
-<form [formGroup]="articleForm" (ngSubmit)="onFormSubmit()">
-   <p> Title: <input formControlName="title"> </p>
-   <p> Category: <input formControlName="category"> </p>
-   <p> <button>Update</button> </p>
-</form> 
+<mat-card *ngIf="article">
+  <h2>Article #{{article.articleId}}</h2>
+
+  <h3>{{article.title}}</h3>
+  <p> <strong>Category</strong>: {{article.category}}</p>
+</mat-card>
+

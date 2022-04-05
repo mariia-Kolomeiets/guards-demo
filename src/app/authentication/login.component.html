@@ -1,9 +1,20 @@
-<h3>Login Form</h3>
-<div *ngIf="invalidCredentialMsg" ngClass="error">{{invalidCredentialMsg}}</div>
-<div>
-	<form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
-	  <p>User Name: <input formControlName="username"></p>
-	  <p>Password: <input type="password" formControlName="password"></p>
-	  <p><button type="submit">Submit</button></p> 
-	</form>
-</div>
+<mat-card>
+  <h3>Login Form</h3>
+
+  <div *ngIf="invalidCredentialMsg" ngClass="error">{{invalidCredentialMsg}}</div>
+  <div>
+    <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>UserName</mat-label>
+        <input matInput formControlName="username">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password">
+      </mat-form-field>
+
+      <button mat-raised-button color="primary"  type="submit">Submit</button>
+    </form>
+  </div>
+</mat-card>

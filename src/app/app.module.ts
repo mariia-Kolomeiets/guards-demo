@@ -1,18 +1,39 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {DashboardLayoutComponent} from './layout/dashboard.layout.component';
+import {AddressComponent} from './address/address.component';
+import {LogoutComponent} from './authentication/logout.component';
+import {AuthGuardService} from './authentication/services/auth-guard.service';
+import {AuthService} from './authentication/services/auth.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [
+    DashboardLayoutComponent,
+    AddressComponent,
+    LogoutComponent,
+    AppComponent
+  ],
+  providers: [
+    AuthService,
+    AuthGuardService
+  ],
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
-export class AppModule { }
+export class AppModule {
+}
