@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import { map } from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
-import { Roles, User } from "../../models";
+import {Roles, User} from "../../models";
 
 const USERS: User[] = [
   {
@@ -21,52 +21,53 @@ const USERS: User[] = [
 
 @Injectable()
 export class AuthService {
-	private redirectUrl: string = '/';
-	private loginUrl: string = '/login';
-	private isloggedIn: boolean = false;
-	private loggedInUser = {} as User;
+  private redirectUrl: string = '/';
+  private loginUrl: string = '/login';
+  private isloggedIn: boolean = false;
+  private loggedInUser = {} as User;
 
-	users$$ = new BehaviorSubject(USERS);
+  users$$ = new BehaviorSubject(USERS);
 
-	getAllUsers(): Observable<User[]> {
-		return this.users$$.asObservable();
-	}
+  getAllUsers(): Observable<User[]> {
+    return this.users$$.asObservable();
+  }
 
-	isUserAuthenticated(username: string, password: string): Observable<boolean> {
-		return this.getAllUsers().pipe(
-			map(users => {
-				let user = users.find(user => (user.username === username) && (user.password === password));
-				if (user) {
-					this.isloggedIn = true;
-					this.loggedInUser = user;
-				} else {
-					this.isloggedIn = false;
-				}
+  isUserAuthenticated(username: string, password: string): Observable<boolean> {
+    return this.getAllUsers().pipe(
+      map(users => {
+        let user = users.find(user => (user.username === username) && (user.password === password));
+        if (user) {
+          this.isloggedIn = true;
+          this.loggedInUser = user;
+        } else {
+          this.isloggedIn = false;
+        }
 
-				return this.isloggedIn;
-			}));
-	}
-	isUserLoggedIn(): boolean {
-		return this.isloggedIn;
-	}
+        return this.isloggedIn;
+      }));
+  }
 
-	getRedirectUrl(): string {
-		return this.redirectUrl;
-	}
+  isUserLoggedIn(): boolean {
+    return this.isloggedIn;
+  }
 
-	setRedirectUrl(url: string): void {
-		this.redirectUrl = url;
-	}
+  getRedirectUrl(): string {
+    return this.redirectUrl;
+  }
 
-	getLoginUrl(): string {
-		return this.loginUrl;
-	}
+  setRedirectUrl(url: string): void {
+    this.redirectUrl = url;
+  }
 
-	getLoggedInUser(): User {
-		return this.loggedInUser;
-	}
+  getLoginUrl(): string {
+    return this.loginUrl;
+  }
 
-	logoutUser(): void {
-		this.isloggedIn = false;
-	}
+  getLoggedInUser(): User {
+    return this.loggedInUser;
+  }
+
+  logoutUser(): void {
+    this.isloggedIn = false;
+  }
 }
