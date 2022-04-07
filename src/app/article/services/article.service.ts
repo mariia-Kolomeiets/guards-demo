@@ -1,32 +1,45 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Article } from './article';
 
-const ARTICLES = [
-	new Article(1, 'Core Java Tutorial', 'Java'),
-	new Article(2, 'Angular Tutorial', 'Angular'),
-	new Article(3, 'Hibernate Tutorial', 'Hibernate')
-];
-let articlesObservable = of(ARTICLES);
 
 @Injectable()
 export class ArticleService {
-	getArticles() {
-		return articlesObservable;
+  articles$$ =  new BehaviorSubject([
+    {
+      articleId: 1,
+      title: 'Core Java Tutorial',
+      category: 'Java',
+    },
+    {
+      articleId: 2,
+      title: 'Angular Tutorial',
+      category: 'Angular',
+    },
+    {
+      articleId: 3,
+      title: 'Hibernate Tutorial',
+      category: 'Hibernate',
+    },
+  ])
+
+	getArticles(): Observable<Article[]> {
+		return this.articles$$.asObservable();
 	}
-	getArticle(id: number) {
+
+	getArticle(id: number): Observable<Article | undefined> {
 		return this.getArticles().pipe(
 			map(articles => articles.find(article => article.articleId === id))
 		);
 	}
+
 	updateArticle(article: Article) {
-		return this.getArticles().pipe(
-			map(articles => {
-				let articleObj = articles.find(ob => ob.articleId === article.articleId);
-				articleObj = article;
-				return articleObj;
-			}));
+    const articles = this.articles$$.getValue();
+    const index = articles.findIndex(ob => ob.articleId === article.articleId);
+    articles[index] = article;
+
+    this.articles$$.next(articles);
 	}
 }

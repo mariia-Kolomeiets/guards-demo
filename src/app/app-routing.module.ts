@@ -8,11 +8,11 @@ import {AddressComponent} from './address/address.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/article',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
-    path: '',
+    path: 'home',
     component: DashboardLayoutComponent,
     canActivate: [AuthGuardService],
     children: [

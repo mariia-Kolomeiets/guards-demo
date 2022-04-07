@@ -10,6 +10,10 @@ import {ArticleRoutingModule} from './article-routing.module';
 import {MatListModule} from "@angular/material/list";
 import {RouterModule} from "@angular/router";
 import {MatCardModule} from "@angular/material/card";
+import {MatButtonModule} from "@angular/material/button";
+import {MatInputModule} from "@angular/material/input";
+import {MatDialogModule} from "@angular/material/dialog";
+import { LeavingDialogComponent } from './leaving-dialog/leaving-dialog.component';
 
 @NgModule({
   imports: [
@@ -19,11 +23,15 @@ import {MatCardModule} from "@angular/material/card";
     MatListModule,
     RouterModule,
     MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    MatDialogModule,
   ],
   declarations: [
     ArticleComponent,
     ArticleListComponent,
-    ArticleEditComponent
+    ArticleEditComponent,
+    LeavingDialogComponent
   ],
   providers: [ArticleService]
 })

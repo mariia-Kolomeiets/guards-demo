@@ -12,16 +12,16 @@ const USERS: User[] = [
     role: Roles.admin,
   },
   {
-    id: 1,
-    username: 'maria',
-    password: '123',
-    role: Roles.admin,
+    id: 2,
+    username: 'alex',
+    password: '321',
+    role: Roles.user,
   }
 ];
 
 @Injectable()
 export class AuthService {
-  private redirectUrl: string = '/';
+  private redirectUrl: string = '/home';
   private loginUrl: string = '/login';
   private isloggedIn: boolean = false;
   private loggedInUser = {} as User;
@@ -35,13 +35,10 @@ export class AuthService {
   isUserAuthenticated(username: string, password: string): Observable<boolean> {
     return this.getAllUsers().pipe(
       map(users => {
-        let user = users.find(user => (user.username === username) && (user.password === password));
-        if (user) {
-          this.isloggedIn = true;
-          this.loggedInUser = user;
-        } else {
-          this.isloggedIn = false;
-        }
+        const user = users.find(user => (user.username === username) && (user.password === password));
+
+        this.loggedInUser = !!user ? user : {} as User;
+        this.isloggedIn = !!user;
 
         return this.isloggedIn;
       }));

@@ -1,7 +1,19 @@
 <mat-card *ngIf="article">
   <h2>Article #{{article.articleId}}</h2>
+  <form [formGroup]="articleForm" style="display: flex; flex-direction: column;">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
 
-  <h3>{{article.title}}</h3>
-  <p> <strong>Category</strong>: {{article.category}}</p>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Category</mat-label>
+      <input matInput formControlName="category">
+    </mat-form-field>
+  </form>
+
+  <div class="actions">
+    <button mat-raised-button color="primary" type="submit" (click)="onFormSubmit()" style="margin-right: 50px">update</button>
+    <button mat-raised-button color="primary" (click)="cancel()">cancel</button>
+  </div>
 </mat-card>
-

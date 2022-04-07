@@ -2,10 +2,10 @@
 
 <div >
   <mat-list role="list" *ngFor="let article of articles | async">
-    <mat-list-item role="listitem">
-      <a [routerLink]="['/article', article.articleId]" >{{article.articleId}}. {{article.title}}, {{article.category}}</a>
+    <mat-list-item role="listitem" >
+      <p >{{article.articleId}}. {{article.title}}, {{article.category}}</p>
+
+      <button mat-raised-button color="primary" (click)="goToEdit(article)">Edit Article</button>
     </mat-list-item>
   </mat-list>
 </div>
-
-<router-outlet></router-outlet>

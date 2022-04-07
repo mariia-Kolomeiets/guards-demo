@@ -25,8 +25,10 @@ export class LoginComponent {
 
     this.authService.isUserAuthenticated(username, password).pipe(
       tap(isAuthenticated => {
+        console.log(isAuthenticated)
         if (isAuthenticated) {
           let url = this.authService.getRedirectUrl();
+          console.log(url)
           this.router.navigate([url]);
 
         } else {

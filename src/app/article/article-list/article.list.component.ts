@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Observable} from 'rxjs';
 
-import { ArticleService } from '../services/article.service';
-import { Article } from '../services/article';
+import {ArticleService} from '../services/article.service';
+import {Article} from '../services/article';
 
 @Component({
-  templateUrl: './article.list.component.html' 
-}) 
-export class ArticleListComponent implements OnInit { 
+  templateUrl: './article.list.component.html',
+  styleUrls: ['./article.list.component.css'],
+  encapsulation: ViewEncapsulation.None,
+})
+export class ArticleListComponent implements OnInit {
   articles: Observable<Article[]>;
-  constructor(		
+  constructor(
         private articleService: ArticleService,
         private route: ActivatedRoute,
         private router: Router) {
           this.articles = this.articleService.getArticles();
         }
   ngOnInit() {
-  }	
+  }
   goToEdit(article: Article) {
       this.router.navigate([ article.articleId ], { relativeTo: this.route });
   }
 }
-    

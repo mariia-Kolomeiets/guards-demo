@@ -7,6 +7,8 @@ import {AuthRoutingModule} from './auth-routing.module';
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import { AccessComponent } from './access/access.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   imports: [
@@ -15,10 +17,12 @@ import {MatButtonModule} from "@angular/material/button";
     AuthRoutingModule,
     MatCardModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
   ],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    AccessComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
